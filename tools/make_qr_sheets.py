@@ -10,7 +10,7 @@ Print sizes:
   big-tent-banner-print.png    6000x3000  -> A1 / A0 banner (about 180 DPI at A1)
   table-tent-sheet.png         1200x1700  -> A5 / A4 portrait table tent
 """
-import os, subprocess, sys
+import os, re, json, subprocess, sys
 import segno
 from PIL import Image, ImageDraw, ImageFont
 
@@ -29,6 +29,30 @@ def lan_ip():
     return "192.168.1.50"
 
 VENUE = f"http://{lan_ip()}:8080/"
+
+def offline_payload():
+    """Compact ASCII menu (names + prices) - small enough for a mini QR."""
+    html = open(os.path.join(ROOT, "index.html"), encoding="utf-8").read()
+    raw = re.search(r'<script type="application/json" id="menu-data">(.*?)</script>',
+                    html, re.S).group(1)
+    data = json.loads(raw)
+
+    def fold(s):
+        return (str(s).replace("é", "e").replace("ñ", "n")
+                      .replace("·", "-").replace("—", "-"))
+
+    out = ["TREATS CAFE & RESTAURANT", "All prices in Ghana Cedis (GHS)", ""]
+    for c in data["categories"]:
+        out.append(fold(c["name"]).upper())
+        w = min(max(len(fold(i["name"])) for i in c["items"]), 30)
+        for it in c["items"]:
+            n = fold(it["name"])
+            n = n if len(n) <= w else n[:w - 1] + "..."
+            out.append(f"{n}{' ' * (w - len(n))} GHS {it['price']}")
+        out.append("")
+    return "\n".join(out).rstrip()
+
+OFFLINE_TEXT = offline_payload()
 
 def fnt(name, size):
     p = f"/System/Library/Fonts/Supplemental/{name}"
@@ -58,13 +82,14 @@ def qr_img(url, px, ec="h"):
     os.remove(p)
     return im, im.width
 
-def big_tent(url, note, path, W=2400, H=1200):
+def big_tent(url, note, path, W=2400, H=1200, offline=False):
     k = W / 2400.0
     F_SCRIPT = fnt("Georgia Italic.ttf", int(74 * k))
     F_BLACK  = fnt("Arial Black.ttf", int(104 * k))
     F_BOLD   = fnt("Arial Bold.ttf", int(42 * k))
     F_REG    = fnt("Arial.ttf", int(34 * k))
     F_MONO   = fnt("Courier New Bold.ttf", int(40 * k))
+    F_SMALL  = fnt("Arial Bold.ttf", int(26 * k))
 
     im = gradient((W, H))
     d = ImageDraw.Draw(im)
@@ -90,6 +115,19 @@ def big_tent(url, note, path, W=2400, H=1200):
     d.rounded_rectangle([W - int(840 * k), (H - int(740 * k)) // 2,
                          W - int(80 * k), (H + int(740 * k)) // 2],
                         radius=int(28 * k), outline="#FFFFFF", width=max(2, int(6 * k)))
+
+    if offline:
+        # small fallback QR: the whole menu as text - needs NO internet, ever
+        opx = int(300 * k)
+        oqr, oqs = qr_img(OFFLINE_TEXT, opx, ec="m")
+        ox, oy = int(150 * k), int(830 * k)
+        im.paste(oqr, (ox, oy))
+        d.rounded_rectangle([ox - int(12*k), oy - int(12*k),
+                             ox + oqs + int(12*k), oy + oqs + int(12*k)],
+                            radius=int(14*k), outline="#FFFFFF", width=max(2, int(4*k)))
+        d.text((ox, oy + oqs + int(26*k)), "NO SIGNAL?", font=F_SMALL, fill="#FFFFFF")
+        d.text((ox, oy + oqs + int(62*k)), "Scan for the text menu", font=F_REG, fill="#FFD9E8")
+
     im.save(path, "PNG")
     print(f"  {os.path.basename(path):30s} {W}x{H}")
 
@@ -134,6 +172,10 @@ if __name__ == "__main__":
     print("BIG TENT:")
     big_tent(b_url, b_note, os.path.join(OUT, "big-tent-banner.png"))
     big_tent(b_url, b_note, os.path.join(OUT, "big-tent-banner-print.png"), W=6000, H=3000)
+    big_tent(b_url, b_note, os.path.join(OUT, "big-tent-banner-combo.png"),
+             W=2400, H=1200, offline=True)
+    big_tent(b_url, b_note, os.path.join(OUT, "big-tent-banner-combo-print.png"),
+             W=6000, H=3000, offline=True)
     print("TABLE TENT:")
     table_tent(t_url, t_note, os.path.join(OUT, "table-tent-sheet.png"))
     print(f"\n  big tent url   : {b_url}")
