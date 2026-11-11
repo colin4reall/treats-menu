@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Treats Cafe &amp; Restaurant — Menu</title>
+<meta name="description" content="Treats Cafe And Restaurant — Good drinks, good food, great vibes. Browse our full menu of breakfast, mains, sandwiches, pancakes, waffles, crepes and drinks.">
+<meta name="theme-color" content="#C2185B">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --magenta:#C2185B;
+  --magenta-deep:#96134A;
+  --rose:#E4559A;
+  --blush:#FCE7F0;
+  --blush-2:#FFF4F8;
+  --cream:#FFFBF7;
+  --cocoa:#3E2422;
+  --cocoa-soft:#6B4A45;
+  --gold:#C08A2E;
+  --rule:#F0D5E1;
+  --shadow:0 2px 18px rgba(150,19,74,.08);
+  --radius:16px;
+  --serif:"Fraunces",Georgia,"Times New Roman",serif;
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;font-family:var(--sans);color:var(--cocoa);background:var(--cream);
+  line-height:1.55;font-size:16px;overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+
+/* ---------- hero ---------- */
+.hero{
+  position:relative;overflow:hidden;
+  background:linear-gradient(160deg,var(--magenta) 0%,var(--magenta-deep) 62%,#6E0E36 100%);
+  color:#fff;padding:44px 20px 38px;text-align:center;
+}
+.hero::before,.hero::after{
+  content:"";position:absolute;border-radius:50%;pointer-events:none;
+}
+.hero::before{width:280px;height:280px;background:rgba(255,255,255,.08);top:-130px;right:-90px}
+.hero::after{width:200px;height:200px;background:rgba(255,255,255,.06);bottom:-110px;left:-70px}
+.hero-inner{position:relative;max-width:760px;margin:0 auto}
+.eyebrow{
+  font-family:var(--serif);font-style:italic;font-weight:500;
+  font-size:clamp(1.4rem,5vw,2rem);margin:0;opacity:.95;
+}
+.brand-mark{
+  font-family:var(--serif);font-weight:900;letter-spacing:-.02em;
+  font-size:clamp(2.2rem,10vw,3.6rem);margin:.05em 0 .1em;line-height:1;
+}
+.brand-mark .cafe{
+  display:block;font-size:clamp(2.8rem,14vw,5rem);
+  -webkit-text-stroke:1.5px #fff;color:transparent;
+}
+.brand-sub{font-size:.82rem;letter-spacing:.22em;text-transform:uppercase;opacity:.85;margin:.2em 0 0}
+.hero h1{
+  font-family:var(--serif);font-weight:700;margin:22px 0 6px;
+  font-size:clamp(1.9rem,7vw,2.9rem);letter-spacing:-.01em;
+}
+.tagline{font-family:var(--serif);font-style:italic;font-size:clamp(1rem,4vw,1.35rem);margin:0 0 4px;opacity:.95}
+.subtag{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;opacity:.75;margin:0}
+.heart{color:#FFB3D1}
+
+/* ---------- nav chips ---------- */
+.nav{
+  position:sticky;top:0;z-index:50;background:rgba(255,251,247,.93);
+  backdrop-filter:saturate(1.6) blur(12px);
+  border-bottom:1px solid var(--rule);padding:9px 0;
+}
+.nav-scroll{
+  display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;
+  padding:0 16px;max-width:900px;margin:0 auto;
+}
+.nav-scroll::-webkit-scrollbar{display:none}
+.chip{
+  flex:0 0 auto;border:1px solid var(--rule);background:#fff;color:var(--cocoa-soft);
+  border-radius:999px;padding:6px 14px;font-size:.82rem;font-weight:600;
+  text-decoration:none;white-space:nowrap;transition:.18s;
+}
+.chip:hover,.chip.active{background:var(--magenta);border-color:var(--magenta);color:#fff}
+
+/* ---------- layout ---------- */
+main{max-width:820px;margin:0 auto;padding:0 16px 40px}
+section{padding-top:42px;scroll-margin-top:62px}
+.sec-head{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.sec-num{
+  font-family:var(--serif);font-size:.8rem;font-weight:700;color:var(--magenta);
+  border:1.5px solid var(--rule);border-radius:999px;padding:2px 9px;flex:0 0 auto;
+}
+h2{
+  font-family:var(--serif);font-weight:700;margin:0;
+  font-size:clamp(1.55rem,6vw,2.15rem);letter-spacing:-.015em;color:var(--cocoa);
+}
+.sec-note{color:var(--cocoa-soft);font-size:.9rem;margin:0 0 18px;padding-left:0}
+.rule{height:2px;background:linear-gradient(90deg,var(--magenta),var(--rose) 40%,transparent);border:0;margin:10px 0 20px;border-radius:2px}
+
+/* ---------- items ---------- */
+.items{list-style:none;margin:0;padding:0}
+.item{padding:13px 0;border-bottom:1px dashed var(--rule)}
+.item:last-child{border-bottom:0}
+.item-head{display:flex;align-items:baseline;gap:10px}
+.item-name{font-weight:700;font-size:1.03rem;letter-spacing:-.01em}
+.leader{flex:1 1 auto;border-bottom:1.5px dotted #E7C6D8;transform:translateY(-4px);min-width:18px}
+.price{
+  font-family:var(--serif);font-weight:700;color:var(--magenta);
+  font-size:1.06rem;white-space:nowrap;
+}
+.badge{
+  display:inline-block;background:var(--blush);color:var(--magenta-deep);
+  border-radius:999px;padding:1px 9px;font-size:.7rem;font-weight:700;
+  vertical-align:middle;margin-left:6px;letter-spacing:.02em;
+}
+.desc{color:var(--cocoa-soft);font-size:.91rem;margin:5px 0 0}
+.meta{
+  margin:7px 0 0;font-size:.82rem;color:var(--cocoa-soft);
+  background:var(--blush-2);border-left:2.5px solid var(--rose);
+  padding:7px 11px;border-radius:0 8px 8px 0;
+}
+.meta b{color:var(--magenta-deep);font-weight:600}
+
+/* ---------- photo grid ---------- */
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:18px 0 4px}
+@media(min-width:620px){.grid{grid-template-columns:repeat(3,1fr);gap:12px}}
+.photo{
+  position:relative;border-radius:var(--radius);overflow:hidden;cursor:zoom-in;
+  background:var(--blush);aspect-ratio:4/3;box-shadow:var(--shadow);
+}
+.photo img{width:100%;height:100%;object-fit:cover;transition:transform .35s}
+.photo:hover img{transform:scale(1.05)}
+.photo figcaption{
+  position:absolute;left:0;right:0;bottom:0;padding:22px 11px 8px;
+  font-size:.78rem;font-weight:600;color:#fff;
+  background:linear-gradient(transparent,rgba(62,36,34,.82));
+}
+.wide{grid-column:1/-1;aspect-ratio:16/9}
+.wide img{object-position:center 35%}
+
+/* ---------- lightbox ---------- */
+.lb{
+  position:fixed;inset:0;background:rgba(40,16,16,.93);z-index:100;
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+.lb.open{display:flex}
+.lb img{max-width:100%;max-height:88vh;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.lb-cap{color:#fff;text-align:center;margin-top:12px;font-size:.9rem;font-weight:600}
+.lb-close{
+  position:absolute;top:14px;right:16px;background:rgba(255,255,255,.16);
+  color:#fff;border:0;width:40px;height:40px;border-radius:50%;font-size:24px;
+  cursor:pointer;line-height:1;
+}
+
+/* ---------- contact + footer ---------- */
+.contact{
+  margin-top:44px;background:var(--blush);border:1px solid var(--rule);
+  border-radius:var(--radius);padding:22px 20px;text-align:center;
+}
+.contact h2{font-size:1.25rem;margin-bottom:10px}
+.contact p{margin:4px 0;font-size:.95rem;color:var(--cocoa-soft)}
+.contact .todo{font-size:.78rem;color:var(--gold);font-weight:600;margin-top:12px}
+.cta{
+  display:inline-block;margin-top:14px;background:var(--magenta);color:#fff;
+  text-decoration:none;padding:12px 26px;border-radius:999px;font-weight:700;
+  font-size:.95rem;box-shadow:0 6px 18px rgba(194,24,91,.28);
+}
+footer{
+  margin-top:40px;padding:26px 16px 40px;text-align:center;
+  background:var(--magenta-deep);color:#fff;
+}
+footer .brand{font-family:var(--serif);font-size:1.4rem;font-weight:700}
+footer p{font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;opacity:.75;margin:6px 0 0}
+
+@media print{
+  .nav,.lb,.cta,.photo{cursor:default}
+  .nav{display:none}
+  body{background:#fff}
+  .hero{background:var(--magenta)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  section{page-break-inside:avoid;padding-top:18px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow">Treats</p>
+    <div class="brand-mark"><span class="cafe">Cafe</span></div>
+    <p class="brand-sub">And Restaurant</p>
+    <h1>Our Menu</h1>
+    <p class="tagline">More than just a drink <span class="heart">&#9825;</span></p>
+    <p class="subtag">Good Drinks &bull; Good Food &bull; Great Vibes</p>
+  </div>
+</header>
+
+<nav class="nav" aria-label="Menu categories">
+  <div class="nav-scroll" id="nav"></div>
+</nav>
+
+<main id="menu"></main>
+
+<section id="boards">
+  <div class="sec-head"><span class="sec-num">&#9783;</span><h2>Our Menu Boards</h2></div>
+  <hr class="rule">
+  <p class="sec-note">The originals, as printed.</p>
+  <div class="grid" id="posters"></div>
+</section>
+
+<section class="contact">
+  <h2>Visit Treats Cafe</h2>
+  <p>&#128205; <span id="c-addr">Add your address here</span></p>
+  <p>&#128222; <span id="c-phone">Add your phone number here</span></p>
+  <p>&#128241; <span id="c-social">Add your Instagram / WhatsApp here</span></p>
+  <a class="cta" href="#" id="c-order">Order ahead</a>
+  <p class="todo">&#9998; Edit the three lines above + the "Order ahead" link in
+    <code>index.html</code> (search for <code>c-addr</code>).</p>
+</section>
+
+<footer>
+  <div class="brand">Treats Cafe &amp; Restaurant</div>
+  <p>Good drinks &bull; Good food &bull; Great vibes</p>
+</footer>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <button class="lb-close" id="lbClose" aria-label="Close">&times;</button>
+  <div>
+    <img id="lbImg" src="" alt="">
+    <p class="lb-cap" id="lbCap"></p>
+  </div>
+</div>
+
+<!-- ============================================================
+     MENU DATA  —  edit prices/names here. Price is a NUMBER in Ghana Cedis (GH₵).
+     ============================================================ -->
+<script type="application/json" id="menu-data">
+{
+  "categories": [
+    {
+      "id": "breakfast", "name": "Breakfast", "note": "Served all day",
+      "items": [
+        { "name": "Solo Breakfast", "badge": "1 serving", "price": 150,
+          "desc": "Loaded grilled chicken sandwich, omelettes, sausages, crepes, syrup and fruits.",
+          "meta": "<b>Sides included</b> — choose 1: oats, hot chocolate or juice" },
+        { "name": "Duo Breakfast", "badge": "2 servings", "price": 280,
+          "desc": "Loaded grilled chicken sandwich, egg and beef wrap, omelettes, sausages, crepes, syrup, French toast and fruits.",
+          "meta": "<b>Sides included</b> — choose 2: oats, hot chocolate or juice" }
+      ]
+    },
+    {
+      "id": "mains", "name": "Main Course",
+      "items": [
+        { "name": "Burger & Chips", "price": 120,
+          "desc": "Creamy beef-loaded burger with French fries, and a small portion of toasted chicken." },
+        { "name": "Chicken & Chips", "price": 120,
+          "desc": "French fries, spicy toasted chicken with coleslaw or lettuce salad, ketchup." },
+        { "name": "Seafood Noodles", "price": 300,
+          "desc": "Prawns, calamari, fried eggs, king crabs and vegetables." },
+        { "name": "Mashed Potatoes with Steak", "price": 150,
+          "desc": "Creamy mashed potatoes, steak with gravy or sauce." },
+        { "name": "Acheke", "price": 150,
+          "desc": "Grilled tilapia, green chili, red chili, avocado, sautéed vegetables and sauce." },
+        { "name": "Creamy Sweet Potato Loaded Fries", "price": 120,
+          "desc": "Sweet potatoes, creamy sauce, mozzarella cheese, chicken, beef, sausage and vegetables." }
+      ]
+    },
+    {
+      "id": "sandwiches", "name": "Sandwiches",
+      "items": [
+        { "name": "Croissant Smash Burger", "price": 90,
+          "desc": "Croissant, cheddar cheese, minced beef or chicken, lettuce, tomato, creamy sauce." },
+        { "name": "Tuna Sandwich", "price": 90,
+          "desc": "Toasted bread, lettuce, tuna chunks, boiled egg, tomato, cheddar cheese, mayo sauce." },
+        { "name": "Egg Sandwich", "price": 60,
+          "desc": "Toasted bread, lettuce, boiled eggs, mayo sauce, cheddar cheese." },
+        { "name": "Club Sandwich", "price": 90,
+          "desc": "Toasted bread, chicken, egg, carrots and onions, lettuce, ham or cheese, mayo mix." },
+        { "name": "Loaded Chicken Sandwich", "price": 100,
+          "desc": "Toasted bread, grilled chicken, melted cheese, lettuce, caramelized onions, tomato, creamy sauce." },
+        { "name": "Burger", "price": 60, "desc": "Creamy beef loaded burger." }
+      ]
+    },
+    {
+      "id": "snacks", "name": "Snacks",
+      "items": [
+        { "name": "Spring Rolls", "price": 30, "desc": "4 pieces of spring rolls." },
+        { "name": "Samosa", "price": 30, "desc": "4 pieces of samosa." },
+        { "name": "Minced Beef Pie", "price": 20 },
+        { "name": "Chicken Pie", "price": 20 },
+        { "name": "Fish Pie", "price": 20 },
+        { "name": "Croissant", "price": 30 }
+      ]
+    },
+    {
+      "id": "crepes", "name": "Crepes",
+      "photos": [
+        ["assets/crepe-pistachio.jpg","Premium Pistachio"],
+        ["assets/crepe-brownie.jpg","Brownie Crepes"],
+        ["assets/crepe-lotus.jpg","Creamy Lotus"],
+        ["assets/crepe-nutella.jpg","Nutella Banana"]
+      ],
+      "items": [
+        { "name": "Premium Pistachio", "price": 80 },
+        { "name": "Brownie Crepes", "price": 70 },
+        { "name": "Creamy Lotus", "price": 80 },
+        { "name": "Nutella Banana", "price": 70 }
+      ]
+    },
+    {
+      "id": "pancakes", "name": "Pancakes",
+      "photos": [
+        ["assets/pancake-pistachio.jpg","Pistachio Pancakes"],
+        ["assets/pancake-strawberry.jpg","Strawberry Pancakes"],
+        ["assets/pancake-oreo.jpg","Vanilla & Chocolate with Oreo"],
+        ["assets/pancake-biscoff.jpg","Biscoff Pancakes"]
+      ],
+      "items": [
+        { "name": "Pistachio Pancakes", "price": 60 },
+        { "name": "Strawberry Pancakes", "price": 70 },
+        { "name": "Vanilla & Chocolate with Oreo Pancakes", "price": 60 },
+        { "name": "Biscoff Pancakes", "price": 60 }
+      ]
+    },
+    {
+      "id": "waffles", "name": "Waffles",
+      "photos": [
+        ["assets/waffle-oreo.jpg","Crunchy Chocolate Oreo"],
+        ["assets/waffle-lotus.jpg","Lotus Biscoff"]
+      ],
+      "items": [
+        { "name": "Crunchy Chocolate Oreo", "price": 70 },
+        { "name": "Lotus Biscoff", "price": 70 }
+      ]
+    },
+    {
+      "id": "milkshakes", "name": "Milkshakes",
+      "photos": [
+        ["assets/shake-vanilla.jpg","Vanilla"],
+        ["assets/shake-strawberry.jpg","Strawberry"],
+        ["assets/shake-oreo.jpg","Oreo"],
+        ["assets/shake-mango.jpg","Mango"]
+      ],
+      "items": [
+        { "name": "Vanilla", "price": 50 },
+        { "name": "Strawberry", "price": 50 },
+        { "name": "Oreo", "price": 50 },
+        { "name": "Mango", "price": 50 }
+      ]
+    },
+    {
+      "id": "mocktails", "name": "Mocktails",
+      "photos": [["assets/mocktails-row.jpg","Mocktails"]],
+      "items": [
+        { "name": "Blue Piña Colada", "price": 60 },
+        { "name": "Virgin Mojito", "price": 60 },
+        { "name": "Tropical Sunrise", "price": 60 },
+        { "name": "Pornstar Martini", "price": 70 },
+        { "name": "Sex on the Beach", "price": 60 }
+      ]
+    },
+    {
+      "id": "slushies", "name": "Slushies",
+      "photos": [["assets/slushies-row.jpg","Slushies"]],
+      "items": [
+        { "name": "Lemonade Slush", "price": 50 },
+        { "name": "Mango Slush", "price": 50 },
+        { "name": "Pineapple Slush", "price": 50 },
+        { "name": "Strawberry Slush", "price": 50 },
+        { "name": "Mixed Fruit Slush", "price": 50 },
+        { "name": "Blueberry Slush", "price": 50 }
+      ]
+    },
+    {
+      "id": "drinks", "name": "Iced Lattes, Matcha & Boba",
+      "photos": [["assets/drinks-strip.jpg","Iced Lattes · Matcha · Boba"]],
+      "items": [
+        { "name": "Oreo Iced Latte", "price": 55 },
+        { "name": "Caramel Latte", "price": 50 },
+        { "name": "Biscoff Latte", "price": 60 },
+        { "name": "Cappuccino", "price": 60 },
+        { "name": "Vanilla Latte", "price": 50 },
+        { "name": "Strawberry Matcha", "price": 60 },
+        { "name": "Biscoff Matcha", "price": 60 },
+        { "name": "Iced Pumpkin Matcha", "price": 60 },
+        { "name": "Strawberry Milk Boba", "price": 50 },
+        { "name": "Oreo Milk Boba", "price": 50 },
+        { "name": "Taro Boba", "price": 50 },
+        { "name": "Vanilla Boba", "price": 50 }
+      ]
+    }
+  ]
+}
+</script>
+
+<script>
+(function(){
+  "use strict";
+  var CEDI = "₵";
+  var data = JSON.parse(document.getElementById("menu-data").textContent);
+  var main = document.getElementById("menu");
+  var nav  = document.getElementById("nav");
+
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+
+  function price(n){ return CEDI + n; }
+
+  function photoGrid(photos){
+    var h = '<div class="grid">';
+    photos.forEach(function(p,i){
+      var wide = (photos.length === 1) ? " wide" : "";
+      h += '<figure class="photo'+wide+'" data-src="'+esc(p[0])+'" data-cap="'+esc(p[1])+'">'+
+           '<img src="'+esc(p[0])+'" alt="'+esc(p[1])+'" loading="lazy" decoding="async">'+
+           '<figcaption>'+esc(p[1])+'</figcaption></figure>';
+    });
+    return h + '</div>';
+  }
+
+  function itemRow(it){
+    var h = '<li class="item"><div class="item-head">'+
+            '<span class="item-name">'+esc(it.name)+
+            (it.badge ? ' <span class="badge">'+esc(it.badge)+'</span>' : '')+
+            '</span><span class="leader"></span>'+
+            '<span class="price">'+price(it.price)+'</span></div>';
+    if (it.desc) h += '<p class="desc">'+esc(it.desc)+'</p>';
+    if (it.meta) h += '<p class="meta">'+it.meta+'</p>';
+    return h + '</li>';
+  }
+
+  var html = "";
+  data.categories.forEach(function(c,i){
+    var n = String(i+1).padStart(2,"0");
+    html += '<section id="'+esc(c.id)+'">'+
+              '<div class="sec-head"><span class="sec-num">'+n+'</span><h2>'+esc(c.name)+'</h2></div>'+
+              (c.note ? '<p class="sec-note">'+esc(c.note)+'</p>' : '')+
+              '<hr class="rule">';
+    if (c.photos) html += photoGrid(c.photos);
+    html += '<ul class="items">' + c.items.map(itemRow).join("") + '</ul></section>';
+    nav.insertAdjacentHTML("beforeend",
+      '<a class="chip" href="#'+esc(c.id)+'">'+esc(c.name)+'</a>');
+  });
+  main.innerHTML = html;
+
+  /* poster gallery */
+  var posters = ["IMG_3649","IMG_3650","IMG_3651","IMG_3652","IMG_3653",
+                 "IMG_3654","IMG_3655","IMG_3656","IMG_3657","IMG_3658"];
+  document.getElementById("posters").innerHTML = posters.map(function(p){
+    return '<figure class="photo" data-src="assets/posters/'+p+'.jpg" data-cap="Menu board">'+
+           '<img src="assets/posters/'+p+'.jpg" alt="Treats Cafe menu board" loading="lazy" decoding="async"></figure>';
+  }).join("");
+
+  /* lightbox */
+  var lb=document.getElementById("lb"), lbImg=document.getElementById("lbImg"),
+      lbCap=document.getElementById("lbCap");
+  function open(src,cap){ lbImg.src=src; lbImg.alt=cap||""; lbCap.textContent=cap||""; lb.classList.add("open"); }
+  function close(){ lb.classList.remove("open"); lbImg.src=""; }
+  document.addEventListener("click",function(e){
+    var f=e.target.closest(".photo");
+    if(f){ open(f.dataset.src,f.dataset.cap); return; }
+    if(e.target===lb || e.target.id==="lbClose") close();
+  });
+  document.addEventListener("keydown",function(e){ if(e.key==="Escape") close(); });
+
+  /* active chip highlighting */
+  var chips=[].slice.call(nav.querySelectorAll(".chip"));
+  var secs=data.categories.map(function(c){return document.getElementById(c.id);});
+  function onScroll(){
+    var y=window.scrollY+120, best=0;
+    secs.forEach(function(s,i){ if(s && s.offsetTop<=y) best=i; });
+    chips.forEach(function(c,i){ c.classList.toggle("active",i===best); });
+  }
+  window.addEventListener("scroll",onScroll,{passive:true});
+  onScroll();
+})();
+</script>
+</body>
+</html>
