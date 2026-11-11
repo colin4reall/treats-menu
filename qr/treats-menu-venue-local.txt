@@ -1,0 +1,4 @@
+Treats Cafe menu (restaurant wifi)
+http://192.168.100.47:8080/
+
+Join our wifi, then open the link or scan the QR.

@@ -24,3 +24,35 @@ git add -A && git commit -m "new offline QR" && git push
 
 Print both on the same tent: the online one for the pretty menu, the offline
 one for when the wifi is down.
+
+## Three ways to get the menu to a guest
+
+| Option | Needs internet | Photos | Pretty | Maintenance |
+|---|---|---|---|---|
+| `qr/treats-menu-print-sheet.png` | Yes | Yes | Yes | none - updates itself |
+| PWA (same URL, installed) | No, *after* first visit | Yes | Yes | none - auto-updates |
+| `qr/treats-menu-offline-*.png` | **Never** | No | Plain text | re-print when prices change |
+| `qr/treats-menu-venue-local.png` | **Never** | Yes | Yes | needs a machine on at the venue |
+
+### The PWA (already enabled)
+
+`sw.js` + `manifest.webmanifest` are live. Once a guest opens the menu, the page
+and all 17 photos are cached on their phone, and "Add to Home Screen" gives them
+an app icon. It then works with no signal at all.
+
+### The venue-local server (truly zero internet, keeps the photos)
+
+On the machine at the restaurant:
+
+```sh
+python3 tools/make_venue_qr.py          # detects this machine's LAN IP, writes the QR
+python3 -m http.server 8080 --bind 0.0.0.0 --directory .
+```
+
+Guests join the restaurant wifi and scan `qr/treats-menu-venue-local.png`.
+Full pretty menu with photos, no internet.
+
+Caveats: the machine must stay on, the router needs a static/reserved lease for
+that IP (or re-run `make_venue_qr.py` if it changes), and some guest networks
+enable "client isolation", which blocks device-to-device traffic - test on the
+real wifi before printing.
