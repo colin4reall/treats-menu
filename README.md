@@ -56,3 +56,20 @@ Caveats: the machine must stay on, the router needs a static/reserved lease for
 that IP (or re-run `make_venue_qr.py` if it changes), and some guest networks
 enable "client isolation", which blocks device-to-device traffic - test on the
 real wifi before printing.
+
+## Which file to print where
+
+| Print job | File | Size | Print at |
+|---|---|---|---|
+| **Big tent** - window, wall, entrance banner | `qr/big-tent-banner-print.png` | 6000x3000 | A1 or A0 landscape (~180 DPI) |
+| Big tent - small/quick | `qr/big-tent-banner.png` | 2400x1200 | A3 landscape |
+| **Table tents** - tables, counter, cups | `qr/table-tent-sheet.png` | 1200x1700 | A5 or A4 portrait |
+| Table tent (venue wifi only) | `python3 tools/make_qr_sheets.py --venue` | 1200x1700 | A5 or A4 portrait |
+
+Regenerate after a price change:
+```sh
+python3 tools/make_qr_sheets.py
+```
+
+Both sheets print the URL as readable text under the QR, so anyone who cannot
+scan (no camera, cracked screen, QR sticker damaged) can still type it in.
