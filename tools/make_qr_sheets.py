@@ -117,16 +117,22 @@ def big_tent(url, note, path, W=2400, H=1200, offline=False):
                         radius=int(28 * k), outline="#FFFFFF", width=max(2, int(6 * k)))
 
     if offline:
-        # small fallback QR: the whole menu as text - needs NO internet, ever
-        opx = int(300 * k)
+        # small fallback QR: the whole menu as text - needs NO internet, ever.
+        # Sized so it stays >=0.4mm per module even at A3 (the usual scan minimum).
+        opx = int(420 * k)
         oqr, oqs = qr_img(OFFLINE_TEXT, opx, ec="m")
-        ox, oy = int(150 * k), int(830 * k)
+        ox = int(150 * k)
+        oy = H - int(120 * k) - oqs
         im.paste(oqr, (ox, oy))
         d.rounded_rectangle([ox - int(12*k), oy - int(12*k),
                              ox + oqs + int(12*k), oy + oqs + int(12*k)],
                             radius=int(14*k), outline="#FFFFFF", width=max(2, int(4*k)))
-        d.text((ox, oy + oqs + int(26*k)), "NO SIGNAL?", font=F_SMALL, fill="#FFFFFF")
-        d.text((ox, oy + oqs + int(62*k)), "Scan for the text menu", font=F_REG, fill="#FFD9E8")
+        lx = ox + oqs + int(40 * k)
+        ly = oy + int(60 * k)
+        d.text((lx, ly), "NO SIGNAL?", font=F_SMALL, fill="#FFFFFF")
+        d.text((lx, ly + int(40 * k)), "Scan this for the", font=F_REG, fill="#FFD9E8")
+        d.text((lx, ly + int(84 * k)), "text menu - needs", font=F_REG, fill="#FFD9E8")
+        d.text((lx, ly + int(128 * k)), "no internet at all", font=F_REG, fill="#FFD9E8")
 
     im.save(path, "PNG")
     print(f"  {os.path.basename(path):30s} {W}x{H}")
@@ -173,9 +179,9 @@ if __name__ == "__main__":
     big_tent(b_url, b_note, os.path.join(OUT, "big-tent-banner.png"))
     big_tent(b_url, b_note, os.path.join(OUT, "big-tent-banner-print.png"), W=6000, H=3000)
     big_tent(b_url, b_note, os.path.join(OUT, "big-tent-banner-combo.png"),
-             W=2400, H=1200, offline=True)
+             W=2400, H=1400, offline=True)
     big_tent(b_url, b_note, os.path.join(OUT, "big-tent-banner-combo-print.png"),
-             W=6000, H=3000, offline=True)
+             W=6000, H=3500, offline=True)
     print("TABLE TENT:")
     table_tent(t_url, t_note, os.path.join(OUT, "table-tent-sheet.png"))
     print(f"\n  big tent url   : {b_url}")
