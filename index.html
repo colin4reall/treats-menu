@@ -9,6 +9,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Treats Menu">
 <style>
 :root{
   --magenta:#C2185B;
@@ -168,6 +173,22 @@ h2{
   text-decoration:none;padding:12px 26px;border-radius:999px;font-weight:700;
   font-size:.95rem;box-shadow:0 6px 18px rgba(194,24,91,.28);
 }
+.cta.alt{background:#fff;color:var(--magenta);box-shadow:none;border:1.5px solid var(--magenta);margin-left:6px}
+.cta.off{background:#EFE3EA;color:#B79CAA;box-shadow:none;border:1.5px solid #EFE3EA;pointer-events:none}
+.install-pill{
+  position:fixed;left:50%;bottom:16px;transform:translateX(-50%) translateY(120%);
+  background:var(--magenta);color:#fff;border:0;border-radius:999px;
+  padding:11px 20px;font-family:var(--sans);font-weight:700;font-size:.88rem;
+  box-shadow:0 8px 26px rgba(194,24,91,.42);cursor:pointer;z-index:90;
+  transition:transform .32s cubic-bezier(.2,.9,.3,1.2);opacity:0;
+}
+.install-pill.show{transform:translateX(-50%) translateY(0);opacity:1}
+.offline-tag{
+  display:none;margin:10px auto 0;font-size:.74rem;font-weight:700;color:#2E7D32;
+  background:#E8F5E9;border:1px solid #C8E6C9;border-radius:999px;
+  padding:4px 12px;width:fit-content;
+}
+.offline-tag.show{display:block}
 footer{
   margin-top:40px;padding:26px 16px 40px;text-align:center;
   background:var(--magenta-deep);color:#fff;
@@ -217,6 +238,8 @@ footer p{font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;opacity:
   <p>&#128222; <span id="c-phone">Add your phone number here</span></p>
   <p>&#128241; <span id="c-social">Add your Instagram / WhatsApp here</span></p>
   <a class="cta" href="#" id="c-order">Order ahead</a>
+  <button class="cta alt" id="installBtn" hidden>Add to Home Screen</button>
+  <p class="offline-tag" id="offlineTag">&#10003; Saved for offline - this menu now works without signal</p>
   <p class="todo">&#9998; Edit the three lines above + the "Order ahead" link in
     <code>index.html</code> (search for <code>c-addr</code>).</p>
 </section>
@@ -477,6 +500,53 @@ footer p{font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;opacity:
   }
   window.addEventListener("scroll",onScroll,{passive:true});
   onScroll();
+
+  /* ---------- offline / installable ---------- */
+  var deferredPrompt = null;
+  var installBtn = document.getElementById("installBtn");
+  var offlineTag = document.getElementById("offlineTag");
+
+  window.addEventListener("beforeinstallprompt", function(e){
+    e.preventDefault();
+    deferredPrompt = e;
+    installBtn.hidden = false;
+    installBtn.classList.remove("off");
+    installBtn.textContent = "Add to Home Screen";
+  });
+
+  installBtn.addEventListener("click", async function(){
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    var choice = await deferredPrompt.userChoice;
+    deferredPrompt = null;
+    installBtn.hidden = true;
+    if (choice && choice.outcome === "accepted") {
+      installBtn.hidden = false;
+      installBtn.classList.add("off");
+      installBtn.textContent = "Installed ✓";
+    }
+  });
+
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function(){
+      navigator.serviceWorker.register("./sw.js").then(function(reg){
+        function check(){
+          if (navigator.serviceWorker.controller) {
+            offlineTag.classList.add("show");
+            installBtn.hidden = false;
+            if (!deferredPrompt) {
+              installBtn.textContent = "Add to Home Screen";
+            }
+          }
+        }
+        check();
+        reg.addEventListener("updatefound", function(){
+          reg.installing && reg.installing.addEventListener("statechange", check);
+        });
+        navigator.serviceWorker.addEventListener("controllerchange", check);
+      }).catch(function(){});
+    });
+  }
 })();
 </script>
 </body>
